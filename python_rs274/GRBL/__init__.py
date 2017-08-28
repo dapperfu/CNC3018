@@ -1,17 +1,19 @@
 import serial
+
+
 class GRBL(object):
     BAUDRATE = 115200
-    
+
     def __init__(self, port):
         self.serial = serial.Serial(port=port,
                                     baudrate=GRBL.BAUDRATE,
                                     timeout=0.10)
-        
+
     def write(self, command_line=""):
         self.serial.flushInput()
         self.serial.write("\n".encode())
         self.serial.write("{cmd}\n".format(cmd=command_line).encode())
-        
+
     def read(self, multiline=True):
         if multiline:
             responses = self.serial.readlines()
@@ -20,45 +22,46 @@ class GRBL(object):
         else:
             response = self.serial.readline()
             return response.decode().strip()
- 
+
     def cmd(self, command_line, resp=True, multiline=True):
         self.write(command_line)
         if resp:
             return self.read(multiline=multiline)
         return None
-    
+
     def reset(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#grbl-v11-realtime-commands
         """
         ret = self.cmd("\x18")
-        assert(ret[-1]=='ok')
-        
+        assert(ret[-1] == 'ok')
+
     def sleep(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#slp---enable-sleep-mode
         """
         ret = self.cmd("$SLP")
-        assert(ret[-1]=='ok')
-    
+        assert(ret[-1] == 'ok')
+
     @property
     def status(self):
         """
         """
         ret = self.cmd("?")
-        assert(ret[-1]=='ok')
+        assert(ret[-1] == 'ok')
         return ret[1]
-        
+
     def kill_alarm(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#x---kill-alarm-lock
         """
         ret = self.cmd("$X")
-        assert(ret[-1]=='ok')
-        
+        assert(ret[-1] == 'ok')
+
     def home(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#h---run-homing-cycle
         """
         self.write("$H")
-        assert(ret[-1]=='ok')
-        
+        assert(ret[-1] == 'ok')
+
+
 # https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#---view-grbl-settings
 settings = [
     ("$0", "step_pulse"),
@@ -95,7 +98,8 @@ settings = [
     ("$130", "x_travel"),
     ("$131", "y_travel"),
     ("$132", "z_travel"),
-    ]
+]
+
 
 def grbl_getter_generator(cmd):
     def grbl_getter(self):
@@ -107,28 +111,30 @@ def grbl_getter_generator(cmd):
                     return float(value)
         return None
     return grbl_getter
-    
+
+
 def grbl_setter_generator(cmd):
     def grbl_setter(self, value):
         set_cmd = "{cmd}={value}".format(cmd=cmd, value=value)
         ret = self.cmd(set_cmd, resp=True, multiline=False)
         print(ret)
-        
+
     return grbl_setter
+
 
 for setting in settings:
     cmd = setting[0]
     name = setting[1]
-    
+
     setter = grbl_setter_generator(cmd)
     getter = grbl_getter_generator(cmd)
-    
+
     prop = property(fget=getter,
                     fset=setter,
                     doc=" ".join(name.split("_")))
-    
+
     setattr(GRBL, name, prop)
-    
+
 # https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#---view-gcode-parameters
 gcode_parameters = [
     "G54",
@@ -142,19 +148,19 @@ gcode_parameters = [
     "G92",
     "TLO",
     "PRB",
-    ]
+]
 
 
 def gcode_param_gen(parameter):
     def gcode_param(self):
-        gcode_parameters = self.cmd("$#") # View gcode parameters
-        for gcode_parameter in gcode_parameters: 
+        gcode_parameters = self.cmd("$#")  # View gcode parameters
+        for gcode_parameter in gcode_parameters:
             if parameter in gcode_parameter:
                 _, value = gcode_parameter.split(":")
                 value = value.strip("]")
                 values = value.split(",")
                 values = [float(value) for value in values]
-                
+
                 return values
         return None
     return gcode_param
