@@ -52,7 +52,7 @@ import sys
 import argparse
 import threading
 
-RX_BUFFER_SIZE = 128
+RX_BUFFER_SIZE = 64
 BAUD_RATE = 115200
 ENABLE_STATUS_REPORTS = True
 REPORT_INTERVAL = 1.0 # seconds
