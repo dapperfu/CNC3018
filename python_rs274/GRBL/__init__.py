@@ -1,4 +1,5 @@
 import serial
+from time import time, sleep
 
 
 class GRBL(object):
@@ -9,15 +10,15 @@ class GRBL(object):
                                     baudrate=GRBL.BAUDRATE,
                                     timeout=0.10)
 
-    def write(self, command_line="", ret_bytes=True):
-        self.serial.flushInput()
+    def write(self, command_line=""):
         bytes_written = [0, 0]
         bytes_written[0] = self.serial.write("\n".encode())
-        bytes_written[1].serial.write(
+        bytes_written[1] = self.serial.write(
             "{cmd}\n".format(cmd=command_line).encode())
-        return sum(bytes_written)
+        return bytes_written
 
     def read(self, multiline=True, timeout=-1):
+
         if timeout is not -1:
             old_timeout = self.serial.timeout
             self.serial.timeout = timeout
@@ -27,11 +28,12 @@ class GRBL(object):
             return responses
         else:
             responses = self.serial.readline().decode().strip()
-
-        self.serial.timeout = old_timeout
+        if timeout is not -1:
+            self.serial.timeout = old_timeout
         return responses
 
     def cmd(self, command_line, resp=True, multiline=True):
+        self.serial.flushInput()
         self.write(command_line)
         if resp:
             return self.read(multiline=multiline)
@@ -69,7 +71,30 @@ class GRBL(object):
         self.write("$H")
         assert(ret[-1] == 'ok')
 
+    def stream(self, program, compact=True):
+        if isinstance(program, str):
+            program = program.splitlines()
+        elif isinstance(program, list):
+            pass
+        else:
+            raise(Exception("Unsupported: {}".format(type(program))))
 
+        # Strip whitespace and force letters to capital.
+        program = [line.strip().upper() for line in program]
+        # Save bits.
+        if compact:
+            program = [line.replace(" ", "") for line in program]
+
+        t1 = time()
+        self.serial.flushInput()
+        for program_line in program:
+            self.write(program_line)
+            result = self.read(multiline=True, timeout=0.1)
+            while len(result)==0:
+                print("Buffer Full, waiting...")
+                sleep(0.5)
+                result = self.read(multiline=True, timeout=0.1)
+        return time()-t1
 # https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#---view-grbl-settings
 settings = [
     ("$0", "step_pulse"),
