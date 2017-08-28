@@ -9,11 +9,12 @@ class GRBL(object):
                                     baudrate=GRBL.BAUDRATE,
                                     timeout=0.10)
 
-    def write(self, command_line="", ret_bytes = True):
+    def write(self, command_line="", ret_bytes=True):
         self.serial.flushInput()
-        bytes_written=[0, 0]
+        bytes_written = [0, 0]
         bytes_written[0] = self.serial.write("\n".encode())
-        bytes_written[1].serial.write("{cmd}\n".format(cmd=command_line).encode())
+        bytes_written[1].serial.write(
+            "{cmd}\n".format(cmd=command_line).encode())
         return sum(bytes_written)
 
     def read(self, multiline=True, timeout=-1):
