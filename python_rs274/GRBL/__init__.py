@@ -1,5 +1,6 @@
 import serial
 from time import time, sleep
+import GCode
 
 
 class GRBL(object):
@@ -69,13 +70,19 @@ class GRBL(object):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#h---run-homing-cycle
         """
         self.write("$H")
-        assert(ret[-1] == 'ok')
 
-    def stream(self, program, compact=True):
+    # Renamed
+    def stream(self, *args, **kwargs):
+        return self.run(*args, **kwargs)
+
+    # Run
+    def run(self, program, compact=True):
         if isinstance(program, str):
             program = program.splitlines()
         elif isinstance(program, list):
             pass
+        elif isinstance(program, GCode.GCode):
+            program = program.buffer
         else:
             raise(Exception("Unsupported: {}".format(type(program))))
 
@@ -87,14 +94,28 @@ class GRBL(object):
 
         t1 = time()
         self.serial.flushInput()
+
+        buffer_bytes = list()
+
         for program_line in program:
-            self.write(program_line)
-            result = self.read(multiline=True, timeout=0.1)
-            while len(result)==0:
+            bytes_written = self.write(program_line)
+            buffer_bytes.extend(bytes_written)
+            print(sum(buffer_bytes))
+            results = self.read(multiline=True, timeout=0.1)
+
+            while len(results) == 0:
                 print("Buffer Full, waiting...")
                 sleep(0.5)
-                result = self.read(multiline=True, timeout=0.1)
-        return time()-t1
+                results = self.read(multiline=True, timeout=0.1)
+
+            for result in results:
+                if result == "ok":
+                    buffer_bytes.pop(0)
+                    print("Pop")
+
+        return time() - t1
+
+
 # https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#---view-grbl-settings
 settings = [
     ("$0", "step_pulse"),
