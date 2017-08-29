@@ -1,6 +1,8 @@
 import serial
 from time import time, sleep
 import GCode
+import warnings
+
 
 
 class GRBL(object):
@@ -73,6 +75,7 @@ class GRBL(object):
 
     # Renamed
     def stream(self, *args, **kwargs):
+        warnings.warn("deprecated", DeprecationWarning)
         return self.run(*args, **kwargs)
 
     # Run
