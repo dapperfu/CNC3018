@@ -1,5 +1,8 @@
 
 from subprocess import check_output
+import datetime
+import os
+from IPython.display import Image, display_jpeg
 
 resolution = "1600x900"
 
