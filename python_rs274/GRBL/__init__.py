@@ -109,9 +109,14 @@ class GRBL(object):
                 results = self.read(multiline=True, timeout=0.1)
 
             for result in results:
+                print("Result: "+result)
                 if result == "ok":
-                    buffer_bytes.pop(0)
-                    print("Pop")
+                    print(buffer_bytes)
+                    try:
+                        buffer_bytes.pop(0)
+                        print("Pop")
+                    except:
+                        print("No")
 
         return time() - t1
 
