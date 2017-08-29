@@ -4,11 +4,19 @@ import GCode
 import warnings
 
 
-
 class GRBL(object):
+    """
+    Class for a GRBL controlled CNC.
+
+    Tested on 1.1
+    Developed on Chinese CNC 3018
+    """
     BAUDRATE = 115200
 
     def __init__(self, port):
+        """
+
+        """
         self.serial = serial.Serial(port=port,
                                     baudrate=GRBL.BAUDRATE,
                                     timeout=0.10)
@@ -98,28 +106,26 @@ class GRBL(object):
         t1 = time()
         self.serial.flushInput()
 
+        # Create list to store the number of bytes we think are in memory.
         buffer_bytes = list()
 
+        # For each line in the program"
         for program_line in program:
             bytes_written = self.write(program_line)
             buffer_bytes.extend(bytes_written)
-            print(sum(buffer_bytes))
             results = self.read(multiline=True, timeout=0.1)
 
             while len(results) == 0:
-                print("Buffer Full, waiting...")
                 sleep(0.5)
                 results = self.read(multiline=True, timeout=0.1)
 
             for result in results:
-                print("Result: "+result)
                 if result == "ok":
-                    print(buffer_bytes)
                     try:
                         buffer_bytes.pop(0)
-                        print("Pop")
                     except:
-                        print("No")
+                        # Miscounted byte counting, we're ahead.
+                        pass
 
         return time() - t1
 
