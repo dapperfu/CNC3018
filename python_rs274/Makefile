@@ -7,3 +7,5 @@ dev:
 results:
 	jupyter nbconvert --to pdf --output-dir=test_results/ *.ipynb
 	jupyter nbconvert --to html --output-dir=test_results/ *.ipynb
+	jupyter nbconvert --to markdown --output-dir=test_results/ *.ipynb
+
