@@ -117,6 +117,7 @@ class GRBL(object):
 
             while len(results) == 0:
                 sleep(0.5)
+                print(".")
                 results = self.read(multiline=True, timeout=0.1)
 
             for result in results:
