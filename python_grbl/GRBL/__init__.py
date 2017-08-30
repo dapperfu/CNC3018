@@ -109,25 +109,27 @@ class GRBL(object):
         # Create list to store the number of bytes we think are in memory.
         buffer_bytes = list()
 
-        # For each line in the program"
-        for program_line in program:
-            bytes_written = self.write(program_line)
-            buffer_bytes.extend(bytes_written)
-            results = self.read(multiline=True, timeout=0.1)
-
-            while len(results) == 0:
-                sleep(0.5)
-                print(".")
+        try:
+            # For each line in the program"
+            for program_line in program:
+                bytes_written = self.write(program_line)
+                buffer_bytes.extend(bytes_written)
                 results = self.read(multiline=True, timeout=0.1)
 
-            for result in results:
-                if result == "ok":
-                    try:
-                        buffer_bytes.pop(0)
-                    except:
-                        # Miscounted byte counting, we're ahead.
-                        pass
+                while len(results) == 0:
+                    sleep(0.5)
+                    results = self.read(multiline=True, timeout=0.1)
 
+                for result in results:
+                    if result == "ok":
+                        try:
+                            buffer_bytes.pop(0)
+                        except:
+                            # Miscounted byte counting, we're ahead.
+                            pass
+        except KeyboardInterrupt:
+            self.cmd("!")
+            print("^C")
         return time() - t1
 
 
