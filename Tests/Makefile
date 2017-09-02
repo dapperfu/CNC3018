@@ -1,16 +1,18 @@
-notebooks := $(wildcard *.ipynb)
-markdowns := $(patsubst %.ipynb,%.md,$(wildcard *.ipynb))
-pdfs := $(patsubst %.ipynb,%.pdf,$(wildcard *.ipynb))
-
+SRC = $(wildcard *.ipynb)
+PDF = $(SRC:.ipynb=.pdf)
+MD  = $(SRC:.ipynb=.md)
 
 .DEFAULT: all
 .PHONY: all
-all: $(markdowns) $(pdfs)
+all: $(PDF) $(MD)
 	@echo Done
 
-$(markdowns): $(notebooks)
-	jupyter nbconvert --to markdown \"$(patsubst %.md,%.ipynb,$@)\"
+.PHONY: clean
+clean:
+	@rm -rf $(PDF) $(MD) *_files
 
-$(pdfs): $(notebooks)
-	jupyter nbconvert --to pdf \"$(patsubst %.pdf,%.ipynb,$@)\"
+%.pdf: %.ipynb
+	jupyter nbconvert --to pdf $<
 
+%.md: %.ipynb
+	jupyter nbconvert --to markdown $<
