@@ -84,7 +84,7 @@ def cmd_factory(cmd, doc=None):
 # Good core to start with.
 commands = list()
 # GCodes
-for code in [0, 1, 2, 3, 4, 20, 21, 28, 90, 91]:
+for code in [0, 1, 2, 3, 4, 20, 21, 28, 90, 91, 92]:
     commands.append("G{code}".format(code=code))
 # MCodes
 for code in [0, 1, 2, 3, 4, 5, 6]:
