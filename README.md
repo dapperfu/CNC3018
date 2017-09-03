@@ -1,10 +1,47 @@
-# python_cnc3018
-Python Dump for figuring out Inexpensive Aliexpress CNC3018
+# Python CNC3018
+
+Python dump for figuring out inexpensive [Aliexpress CNC3018](https://www.aliexpress.com/wholesale?SearchText=CNC+3018) cnc/engraver/mill/laser machine.
+
+
+```python_grbl``` is a Python module for interacting and interfacing with a grbl device.
+
+```python_gcode``` is a Python module for creating Gcode from Python.
+
+Both are still very in their infancy. I'm spending more time using them and less time developing them, so I hope they are available for public consumption.
+
+Pull requests are encouraged.
+
+## Pictures
+
+Pictures of some outputs produced by these modules.
+
+Testing laser intensity:
+
+![](Pictures/0004.jpg)
+
+Testing feedrate:
+
+![](Pictures/0011.jpg)
+
+Numpy to generate sine wave:
+
+![](Pictures/0015.jpg)
+
+
+## Motivation
+
+I purchased a [Aliexpress CNC3018](https://www.aliexpress.com/wholesale?SearchText=CNC+3018) cnc/engraver/mill/laser machine and started playing with it. The hardware is ok but the software provided is terrible and Windows only.
+
+The machine itself runs on a custom Arduino board running [grbl](https://github.com/gnea/grbl) *an open source, embedded, high performance g-code-parser and CNC milling controller written in optimized C*.
+
+I wanted teach myself [G-code](https://en.wikipedia.org/wiki/G-code) and learn the low level commands and how they operated the machine.
+
+Trying out different machine settings (Laser power, feed rate) is a very tedious and repetitive process. Being able to put it in a ```for``` loop has allowed me to figure out best settings for  laser burning on different materials.
+
 
 # Examples:
 
-
-## Grbl
+## grbl
 
 Create a GRBL instance. ```port``` is the GRBL board serial devie.
 
@@ -64,20 +101,22 @@ Programatically create [G-Code programs](https://en.wikipedia.org/wiki/G-code) w
     program = GCode.GCode()
     program.G0(X=0, Y=0) # Jog to (0, 0).
     
-Draw a square:
+Program to draw a square:
 
     def square(size=20):
         program = GCode.GCode()
-        program.G1(X=size)
-        program.G1(Y=size)
-        program.G1(X=-size)
-        program.G1(Y=-size)
+        program.G1(X=size) # Move in the X direction by 'size'
+        program.G1(Y=size) # Move in the Y direction by 'size'
+        program.G1(X=-size)# Move in the X direction by -'size'
+        program.G1(Y=-size)# Move in the Y direction by -'size'
         return program
 
 Draw sine wave:
 
-    X = np.arange(0, 2*4*np.pi*10, 1)
+    X = np.arange(0, 2*4*np.pi*10, 1) # mm
     test_run = GCode.GCode()
+    # Move head to initial position in X.
+    # When doing absolute 
     test_run.G0(X=X[0])
     test_run.M4(S=255)
     for x in X:
@@ -92,6 +131,10 @@ Save program to gcode file.
 
     test_run.save('my.gcode')
     
+Load gcode file to instance:
+
+    test_run.load('my.gcode')
+    
 ## GRBL & GCode
 
 Combining the above:
@@ -101,21 +144,21 @@ Combining the above:
 Create init & end programs:
     
     def init(feed = 10):
-        program = GCode.GCode()
+        program = GCode.GCode() # Create GCode instance.
         program.G21() # Metric Units
         program.G91() # Absolute positioning.
-        program.G1(F=feed) 
-        return program
+        program.G1(F=feed) # Set G1 feed rate.
+        return program # Return program
     
     def end():
-        program = GCode.GCode()
+        program = GCode.GCode() # Create GCode instance
         return program
 
 Square Program:
 
-    def square(size=10):    
+    def square(size=10, power=1):    
         program = GCode.GCode()
-        program.M3(S=255) # Laser on full power
+        program.M3(S=power) # Laser on full power
         program.G1(X=size) # Draw square.
         program.G1(Y=-size)
         program.G1(X=-size)
@@ -125,12 +168,23 @@ Square Program:
         
 Create a program to draw a row of boxes testing feed speeds on laser engraving.
 
-
     size = 10 # mm
     program = GCode.GCode()
     for feed in [50, 100, 200, 500]:
         program += init(feed=feed)
-        program += square(size=size)
+        program += square(size=size, power=255)
+        program.G0(X=size*2)
+        
+    program += end()
+    cnc.run(program);
+    
+Create a program to draw a row of boxes testing laser power:
+
+    size = 10 # mm
+    program = GCode.GCode()
+    for power in [50, 100, 200, 500]:
+        program += init(feed=100)
+        program += square(size=size, power=power)
         program.G0(X=size*2)
         
     program += end()
@@ -162,3 +216,11 @@ Create virtual environment. [optional]
 Install requirements and setup python_grbl and python_gcode in development mode.
 
     make venv_init
+    
+# TODO
+
+1. Documentation.
+1. Validate GCode.
+1. More examples.
+1. 3D Printer GCode.
+1. ```GCode.ForHumans```. Translate into English [```gcode.move(X=0)```]
