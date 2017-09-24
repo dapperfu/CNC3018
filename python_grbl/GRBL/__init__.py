@@ -67,8 +67,15 @@ class GRBL(object):
         """
         """
         ret = self.cmd("?")
+        if len(ret) == 1:
+            # Held
+            return ret[0]
+        elif len(ret) == 3:
+            return ret[1]
+        else:
+            raise(Exception(ret))
+        
         assert(ret[-1] == 'ok')
-        return ret[1]
 
     def kill_alarm(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#x---kill-alarm-lock
