@@ -1,5 +1,17 @@
 # Python CNC3018
 
+## Development
+
+    git clone https://github.com/jed-frey/CNC3018.git
+    cd CNC3018
+    make venv
+    
+Run Notebook:
+
+    make nb
+
+# Motivation
+
 Python dump for figuring out inexpensive [Aliexpress CNC3018](https://www.aliexpress.com/wholesale?SearchText=CNC+3018) cnc/engraver/mill/laser machine.
 
 
