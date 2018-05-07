@@ -1,30 +1,73 @@
-CWD = $(realpath $(dir $(firstword $(MAKEFILE_LIST))))
-VENV=.venv
+# Config
 
-.PHONY: dev
-dev:
-	sudo apt-get install texlive-xetex pandoc
-	sudo cp 42-cnc.rules /etc/udev/rules.d/
+# Makefile directory
+MK_DIR = $(realpath $(dir $(firstword $(MAKEFILE_LIST))))
 
-.PHONY:venv
-venv: ${VENV}
+# Project name
+PROJ ?= $(notdir ${MK_DIR})
+# Virtual environment path
+VENV ?= ${MK_DIR}
+# Hostname
+HOST:=$(shell hostname).local
+# Executable paths
+PIP:=${VENV}/bin/pip
+PYTHON:=${VENV}/bin/python
 
-${VENV}:
-	python3 -mvenv ${CWD}/${@}
+# Base python modules to install before everything else
+# Some projects need wheel, numpy and cython
+# before they will install correctly.
+BASE_MODULES?=pip setuptools wheel
 
-	${CWD}/${VENV}/bin/pip install -U pip setuptools wheel
-	${CWD}/${VENV}/bin/pip install -U -r requirements.txt
-	cd python_gcode && ${CWD}/${VENV}/bin/python setup.py develop
-	cd python_grbl && ${CWD}/${VENV}/bin/python setup.py develop
 
-.PHONY: nb
-nb: ${VENV}
-	${CWD}/.venv/bin/jupyter-notebook
+# Bootstrap Environments
 
-.PHONY: grbl
-grbl:
-	avrdude -p atmega328p -P /dev/cnc_3018 -b 57600 -c arduino -U flash:w:grbl_v1.1f.20170801.hex
+
+
+# Targets
+.DEFAULT: null
+.PHONY: null
+null:
+	$(error No default target)
+
+.PHONY: xenial
+xenial: requirements-apt.txt
+		cat ${<} | sudo xargs apt-get install -y
+
+.PHONY: develop
+develop: requirements-dev.txt
+	${MAKE} clean
+	python3 -mvenv ${VENV}
+	${PIP} install --upgrade ${BASE_MODULES}
+	${PIP} install --requirement ${<}
+	${PIP} install -e .
+
+
+.PHONY: venv
+venv: ${PYTHON}
+
+${PYTHON}: requirements.txt
+	python3 -mvenv ${VENV}
+	${PIP} install --upgrade ${BASE_MODULES}
+	${PIP} install --upgrade --requirement ${<}
 
 .PHONY: clean
 clean:
-	rm -rf ${VENV}
+	@echo --- Cleaning ${PROJ} ---
+	$(shell git clean -xfdn)
+	git clean -xfd
+
+requirements.txt:
+	$(error ${@} is missing.)
+
+requirements-dev.txt:
+	$(error ${@} is missing.)
+
+.PHONY:nb
+nb:
+	screen -S ${PROJ} -d -m bin/jupyter-notebook --ip=${HOST}
+
+.PHONY: debug
+debug:
+	$(info $${MK_DIR}=${MK_DIR})
+	$(info $${HOST}=${HOST})
+	$(info $${PROJ}=${PROJ})
