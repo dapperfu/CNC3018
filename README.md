@@ -1,11 +1,16 @@
 # Python CNC3018
 
+
+##
+
+
 ## Development
 
-    git clone https://github.com/jed-frey/CNC3018.git
+    git clone --recurse-submodules https://github.com/jed-frey/CNC3018.git
     cd CNC3018
-    make venv
-    
+    git checkout development/jed/2018-May
+
+
 Run Notebook:
 
     make nb
