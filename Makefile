@@ -18,21 +18,29 @@ PYTHON:=${VENV}/bin/python
 # before they will install correctly.
 BASE_MODULES?=pip setuptools wheel
 
-
-# Bootstrap Environments
-
-
-
 # Targets
 .DEFAULT: null
 .PHONY: null
 null:
 	$(error No default target)
 
+# Bootstrap Environments
+.PHONY: ubuntu
+ubuntu:
+	${MAKE} `lsb_release --short --codename`
+	
+.PHONY: freebsd
+freebsd:
+	${MAKE} `uname -r`
+
+
 .PHONY: xenial
 xenial: requirements-apt.txt
-		cat ${<} | sudo xargs apt-get install -y
-
+	cat ${<} | sudo xargs apt-get install -y
+	
+.PHONY: requirements-pkg.txt
+	cat ${<} | xargs pkg install -y
+	
 .PHONY: develop
 develop: requirements-dev.txt
 	${MAKE} clean
@@ -40,7 +48,6 @@ develop: requirements-dev.txt
 	${PIP} install --upgrade ${BASE_MODULES}
 	${PIP} install --requirement ${<}
 	${PIP} install -e .
-
 
 .PHONY: venv
 venv: ${PYTHON}
@@ -53,7 +60,6 @@ ${PYTHON}: requirements.txt
 .PHONY: clean
 clean:
 	@echo --- Cleaning ${PROJ} ---
-	$(shell git clean -xfdn)
 	git clean -xfd
 
 requirements.txt:
@@ -66,8 +72,13 @@ requirements-dev.txt:
 nb:
 	screen -S ${PROJ} -d -m bin/jupyter-notebook --ip=${HOST}
 
-.PHONY: debug
-debug:
-	$(info $${MK_DIR}=${MK_DIR})
-	$(info $${HOST}=${HOST})
-	$(info $${PROJ}=${PROJ})
+.PHONY:screen
+screen:
+	screen -Dr ${PROJ}
+
+.PHONY: upload
+upload: grbl_v1.1f.20170801.hex
+	avrdude -p atmega328p -P /dev/cnc_3018 -b 57600 -c arduino -U flash:w:${<}
+
+grbl_v1.1f.20170801.hex:
+	curl -OL https://github.com/gnea/grbl/releases/download/v1.1f.20170801/grbl_v1.1f.20170801.hex
