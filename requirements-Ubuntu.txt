@@ -1,2 +1,2 @@
 python3 # 18.04 16.04
-python3-virtualenv # 18.04 16.04
+python3-venv # 18.04

@@ -10,10 +10,18 @@
     cd CNC3018
     git checkout development/jed/2018-May
 
+    # Set up the host with required packages.
+    sudo make env.host
+    # Setup python environment.
+    # The first time this runs it takes a while.
+    make env.python
 
-Run Notebook:
-
-    make nb
+    # Activate development environment. 
+    [Pick one]
+    
+    - source bin/activate
+    - source bin/activate.csh
+    - call Scripts\activate.bat
 
 # Motivation
 
@@ -229,10 +237,7 @@ or
 Create virtual environment. [optional]
 
     make venv
-    
-Install requirements and setup python_grbl and python_gcode in development mode.
-
-    make venv_init
+ 
     
 # TODO
 
@@ -240,4 +245,3 @@ Install requirements and setup python_grbl and python_gcode in development mode.
 1. Validate GCode.
 1. More examples.
 1. 3D Printer GCode.
-1. ```GCode.ForHumans```. Translate into English [```gcode.move(X=0)```]
