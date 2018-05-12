@@ -1,3 +1,6 @@
+nohup.out
+.env-*
+
 bin/
 etc/
 lib64
