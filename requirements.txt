@@ -5,5 +5,4 @@ notebook
 pyserial
 
 -e python_grbl/
--e python_gcode/
 pytest-html

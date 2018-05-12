@@ -19,6 +19,10 @@ artifacts: ${ARTIFACT_FILES}
 ${ARTIFACT_FILES}:
 	curl --silent --location --output "${@}" "$(shell cat "${@}.txt")"
 
+.PHONY: upload
+upload: artifacts/grbl_v1.1f.20170801.hex
+	avrdude -p atmega328p -P /dev/cnc_3018 -b 57600 -c arduino -U flash:w:$(realpath ${<})
+
 # Lazy - Because I'm lazy.
 #
 # Do something I'm too lazy to do at this point in development.
