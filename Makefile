@@ -14,8 +14,9 @@ null:
 # Do something I'm too lazy to do at this point in development.
 .PHONY: lazy
 lazy:
-	nohup geany ${SANDWICH_DIR}/*.mk &
-
+	${MAKE} test.python
+	${MAKE} git.sprintcommit
+	
 ## make_sandwich includes
 # https://xkcd.com/149/
 # https://www.explainxkcd.com/wiki/index.php/149:_Sandwich
