@@ -1,27 +1,32 @@
 # Python CNC3018
 
+# Installation
 
-##
-
-
-## Development
-
-    git clone --recurse-submodules https://github.com/jed-frey/CNC3018.git
+    git clone --recurse-submodules --branch development/jed/2018-May https://github.com/jed-frey/CNC3018.git
     cd CNC3018
     git checkout development/jed/2018-May
 
+## Setup environment
+
+Setup the host, only needs done once per host.
+
     # Set up the host with required packages.
     sudo make env.host
+    
+Setup Python environment.    
+    
     # Setup python environment.
     # The first time this runs it takes a while.
     make env.python
-
-    # Activate development environment. 
-    [Pick one]
     
-    - source bin/activate
-    - source bin/activate.csh
-    - call Scripts\activate.bat
+## Activate environment. 
+
+[Pick one]
+
+- `source bin/activate` # Bash
+- `source bin/activate.csh` # C Shells
+- `call Scripts\activate.bat` # Windows
+
 
 # Motivation
 
