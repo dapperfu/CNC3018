@@ -1,3 +1,9 @@
+### Config
+
+## Environment
+# Setup the local environment
+ENVS:=python
+
 ## make_sandwich includes
 # https://xkcd.com/149/
 # https://www.explainxkcd.com/wiki/index.php/149:_Sandwich
@@ -28,7 +34,3 @@ lazy:
 	git fetch --all --verbose
 	${MAKE} test.python
 	${MAKE} git.sprintcommit
-
-## Environment
-# Setup the local environment
-ENVS:=python
