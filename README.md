@@ -4,7 +4,6 @@
 
     git clone --recurse-submodules --branch development/jed/2018-May https://github.com/jed-frey/CNC3018.git
     cd CNC3018
-    git checkout development/jed/2018-May
 
 ## Setup environment
 
