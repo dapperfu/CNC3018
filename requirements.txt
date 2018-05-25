@@ -1,3 +1,5 @@
+## Python Requirements
+
 pytest
 numpy
 jupyter
@@ -7,3 +9,8 @@ pyserial
 -e python_grbl/
 -e python_gcode/
 pytest-html
+
+## Host Requirements
+#16.04 18.04: python3
+#16.04 18.04: python3-venv
+#16.04 18.04: avrdude
