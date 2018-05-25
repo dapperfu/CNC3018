@@ -4,7 +4,6 @@
 
     git clone --recurse-submodules --branch development/jed/2018-May https://github.com/jed-frey/CNC3018.git
     cd CNC3018
-    git checkout development/jed/2018-May
 
 ## Setup environment
 
@@ -27,21 +26,15 @@ Setup Python environment.
 - `source bin/activate.csh` # C Shells
 - `call Scripts\activate.bat` # Windows
 
+### [Optional]
 
-# Motivation
+Copy udev rules to alias the CNC device to `/dev/cnc_3018`, `/dev/grbl_3018`, and `/dev/grbl`.
 
-Python dump for figuring out inexpensive [Aliexpress CNC3018](https://www.aliexpress.com/wholesale?SearchText=CNC+3018) cnc/engraver/mill/laser machine.
-
-
-```python_grbl``` is a Python module for interacting and interfacing with a grbl device.
-
-```python_gcode``` is a Python module for creating Gcode from Python.
-
-Both are still very in their infancy. I'm spending more time using them and less time developing them, so I hope they are available for public consumption.
-
-Pull requests are encouraged.
-
-## Pictures
+    sudo cp 42-cnc.rules /etc/udev/rules.d/
+    sudo udevadm control --reload-rules
+    sudo udevadm trigger
+ 
+# Pictures
 
 Pictures of some outputs produced by these modules.
 
@@ -58,7 +51,9 @@ Numpy to generate sine wave:
 ![](Pictures/0015.jpg)
 
 
-## Motivation
+# Motivation
+
+# Motivation
 
 I purchased a [Aliexpress CNC3018](https://www.aliexpress.com/wholesale?SearchText=CNC+3018) cnc/engraver/mill/laser machine and started playing with it. The hardware is ok but the software provided is terrible and Windows only.
 
@@ -68,6 +63,13 @@ I wanted teach myself [G-code](https://en.wikipedia.org/wiki/G-code) and learn t
 
 Trying out different machine settings (Laser power, feed rate) is a very tedious and repetitive process. Being able to put it in a ```for``` loop has allowed me to figure out best settings for  laser burning on different materials.
 
+```python_grbl``` is a Python module for interacting and interfacing with a grbl device.
+
+```python_gcode``` is a Python module for creating Gcode from Python.
+
+Both are still very in their infancy. I'm spending more time using them and less time developing them, so I hope they are available for public consumption.
+
+Pull requests are encouraged.
 
 # Examples:
 
