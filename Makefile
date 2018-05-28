@@ -34,3 +34,8 @@ lazy:
 	git fetch --all --verbose
 	${MAKE} test.python
 	${MAKE} git.sprintcommit
+
+.PHONY:nb
+nb:
+	screen -S ${PROJ} -d -m bin/jupyter-notebook --ip=${HOST}
+
