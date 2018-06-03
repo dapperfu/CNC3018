@@ -30,10 +30,13 @@ upload: artifacts/grbl_v1.1f.20170801.hex
 #
 # Do something I'm too lazy to do at this point in development.
 .PHONY: lazy
-lazy:
-	git fetch --all --verbose
+lazy: README.md
 	${MAKE} test.python
 	${MAKE} git.sprintcommit
+
+.PHONY: README.md
+README.md:
+	touch ${@}
 
 .PHONY:nb
 nb:
