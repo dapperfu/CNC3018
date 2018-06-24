@@ -36,7 +36,8 @@ class GCode(object):
         for cmd_line in self.buffer:
             cmd, *args = cmd_line.split(" ")
             html_line = "<b>{cmd}</b> <i>{args}</i>".format(
-                cmd=cmd, args=" ".join(args))
+                cmd=cmd, args=" ".join(args)
+            )
             html.append(html_line)
         return "<br>\n".join(html)
 
@@ -65,7 +66,7 @@ class GCode(object):
 
     def optimise(self):
         """ Optimize the GCode """
-        raise(NotImplemented(""))
+        raise (NotImplemented(""))
 
 
 def cmd_factory(cmd, doc=None):
@@ -78,6 +79,7 @@ def cmd_factory(cmd, doc=None):
         # For commands with no arguments.
         cmd_str = cmd_str.strip()
         self.buffer.append(cmd_str)
+
     return cmd_fcn
 
 
