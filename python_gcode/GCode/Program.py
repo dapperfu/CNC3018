@@ -16,9 +16,7 @@ class Program(GCode):
         self.buffer = list()
         self.G0()
         self.G1(F=60)  # 60 mm / min = 1 mm / sec
-        self.M3(
-            S=1
-        )  # Set laser power so that movement can be seen, but does nothing.
+        self.M3(S=1)  # Set laser power so that movement can be seen, but does nothing.
         self.G21()  # Metric Units
         self.G90()  # Absolute positioning.
 
