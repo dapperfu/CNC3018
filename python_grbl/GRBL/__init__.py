@@ -99,12 +99,8 @@ class GRBL(object):
     def run(self, program, compact=True):
         if isinstance(program, str):
             program = program.splitlines()
-        elif isinstance(program, list):
-            pass
-        elif isinstance(program, GCode.GCode):
-            program = program.buffer
         else:
-            raise (Exception("Unsupported: {}".format(type(program))))
+            program = program.buffer
 
         # Strip whitespace and force letters to capital.
         program = [line.strip().upper() for line in program]
