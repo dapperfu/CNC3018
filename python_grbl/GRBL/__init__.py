@@ -84,16 +84,21 @@ class GRBL(object):
         """
         ret = self.cmd("$X")
         assert ret[-1] == "ok"
-
+       
     def home(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#h---run-homing-cycle
         """
         self.write("$H")
 
-    # Renamed
-    def stream(self, *args, **kwargs):
-        warnings.warn("deprecated", DeprecationWarning)
-        return self.run(*args, **kwargs)
+        for t in range(self.home_timeout):
+            ret = self.cmd("")
+            if len(ret) == 2:
+                assert ret[0] == "ok"
+                assert ret[1] == "ok"
+                return t
+                break
+            time.sleep(1)
+        return None
 
     # Run
     def run(self, program, compact=True):
