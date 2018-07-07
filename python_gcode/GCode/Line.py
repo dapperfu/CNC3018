@@ -112,6 +112,11 @@ class Line(GCode):
             d = np.sqrt(np.power(dX, 2) + np.power(dY, 2))
             dist_.append(d)
         return dist_
+    
+    def __repr__(self):
+        return "Line<cut={}mm, dur
+    
+    def 
 
     @property
     def dist(self):
