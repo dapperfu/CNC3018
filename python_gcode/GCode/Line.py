@@ -101,7 +101,8 @@ class Line(GCode):
         return self.points[-1, 1]
 
     @property
-    def dist(self):
+    def dists(self):
+        """ Distances traveled in each line segment """
         # For remaining points.
         dist_ = list()
         for idx in range(1, self.points.shape[0]):
@@ -112,7 +113,8 @@ class Line(GCode):
         return dist_
 
     @property
-    def total_dist(self):
+    def dist(self):
+        """ Total distance traveled. """
         return np.cumsum(self.dist)[-1]
 
     def generate_gcode(self):
