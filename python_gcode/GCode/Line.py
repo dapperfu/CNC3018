@@ -102,7 +102,9 @@ class Line(GCode):
         return self.points[-1, 1]
 
     def __repr__(self):
-        return "Line<cut={}mm, F={}, S={}>".format(self.dist, self.feed, self.power)
+        return "Line<cut={}mm, F={}, S={}>".format(
+            self.dist, self.feed, self.power
+        )
 
     @property
     def dists(self):
@@ -146,5 +148,9 @@ class Line(GCode):
 
         # For remaining points.
         for row_idx in range(1, self.points.shape[0]):
-            self.G1(X=self.points[row_idx, 0], Y=self.points[row_idx, 1], F=self.feed)
+            self.G1(
+                X=self.points[row_idx, 0],
+                Y=self.points[row_idx, 1],
+                F=self.feed,
+            )
         self.M5()
