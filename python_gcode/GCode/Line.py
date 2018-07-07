@@ -118,15 +118,6 @@ class Line(GCode):
         return np.cumsum(self.dist)[-1]
 
     def generate_gcode(self):
-        self.buffer = list()
-        self.G0(F=60)  # 60 mm / min = 1 mm / sec
-        self.G1(F=60)  # 60 mm / min = 1 mm / sec
-        self.M3(
-            S=1
-        )  # Set laser power so that movement can be seen, but does nothing.
-        self.G21()  # Metric Units
-        self.G90()  # Absolute positioning.
-
         # Move to start of the line.
         self.G0(X=self.points[0, 0], Y=self.points[0, 1])
 
