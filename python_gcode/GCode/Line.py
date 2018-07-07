@@ -59,12 +59,12 @@ class Line(GCode):
         *args,
         **kwargs,
     ):
-        super().__init__(*args, **kwargs)
-
         self.points = points
         self.feed = feed
         self.power = power
         self.dynamic_power = dynamic_power
+
+        super().__init__(*args, **kwargs)
 
     @property
     def X(self):
