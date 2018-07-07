@@ -101,7 +101,11 @@ class Line(GCode):
             dY = self.points[idx][1] - self.points[idx - 1][1]
             d = np.sqrt(np.power(dX, 2) + np.power(dY, 2))
             dist_.append(d)
-        return d
+        return dist_
+
+    @property
+    def total_dist(self):
+        return np.cumsum(self.dist)[-1]
 
     def generate_gcode(self):
         self.buffer = list()
