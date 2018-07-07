@@ -6,6 +6,8 @@ jupyter
 notebook
 pyserial
 
+matplotlib
+
 -e python_grbl/
 -e python_gcode/
 pytest-html
