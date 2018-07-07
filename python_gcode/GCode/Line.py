@@ -66,6 +66,8 @@ class Line(GCode):
 
         super().__init__(*args, **kwargs)
 
+        self.generate_gcode()
+
     @property
     def X(self):
         return self.points[:, 0]
