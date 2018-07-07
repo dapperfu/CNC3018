@@ -66,6 +66,22 @@ class Line(GCode):
         self.power = power
         self.dynamic_power = dynamic_power
 
+    @property
+    def x_0(self):
+        return self.points[0, 0]
+
+    @property
+    def y_0(self):
+        return self.points[0, 1]
+
+    @property
+    def x_f(self):
+        return self.points[-1, 0]
+
+    @property
+    def y_f(self):
+        return self.points[-1, 1]
+
     def generate_gcode(self):
         self.buffer = list()
         self.G0(F=60)  # 60 mm / min = 1 mm / sec
