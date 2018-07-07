@@ -1,7 +1,5 @@
 import serial
 from time import time, sleep
-import GCode
-import warnings
 
 
 class GRBL(object):
@@ -13,6 +11,7 @@ class GRBL(object):
     """
 
     BAUDRATE = 115200
+    HOME_TIMEOUT = 60
 
     def __init__(self, port):
         """
@@ -90,7 +89,7 @@ class GRBL(object):
         """
         self.write("$H")
 
-        for t in range(self.home_timeout):
+        for t in range(GRBL.HOME_TIMEOUT):
             ret = self.cmd("")
             if len(ret) == 2:
                 assert ret[0] == "ok"
