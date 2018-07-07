@@ -56,10 +56,8 @@ class GRBL(object):
         """
         for t in range(GRBL.TIMEOUT):
             ret = self.cmd("\x18")
-            print(ret)
-            if len(ret) == 2:
-                assert ret[0] == "ok"
-                assert ret[1] == "ok"
+            if len(ret) > 0:
+                assert ret[-1] == "ok"
                 return t
                 break
             time.sleep(1)
