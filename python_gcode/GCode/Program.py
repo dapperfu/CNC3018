@@ -49,7 +49,7 @@ class Program(GCode):
         dY = 0 - self.lines[idx].y_f
         d = np.sqrt(np.power(dX, 2) + np.power(dY, 2))
         jog_dists.append(d)
-        return np.cumsum(jog_dists)[-1]
+        return np.sum(jog_dists)
 
     @property
     def jog_time(self):
@@ -67,7 +67,7 @@ class Program(GCode):
     def laserin_time(self):
         """ Duration, in s, the line spends cutting. """
         laserin = [line.time for line in self.lines]
-        return np.cumsum(laserin)[-1]
+        return np.sum(laserin)
 
     @property
     def dist(self):
