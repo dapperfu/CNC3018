@@ -89,6 +89,14 @@ class Line(GCode):
     @property
     def y_f(self):
         return self.points[-1, 1]
+    
+    @property
+    def dist(self):
+        # For remaining points.
+        for idx in range(1, self.points.shape[0]):
+                dX=self.points[idx][0]-self.points[idx][0]
+                dY=self.points[idx][1]-self.points[idx][1]
+                d=self.feed,
 
     def generate_gcode(self):
         self.buffer = list()
