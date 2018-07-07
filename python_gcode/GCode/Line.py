@@ -116,7 +116,7 @@ class Line(GCode):
     @property
     def dist(self):
         """ Total distance traveled. """
-        return np.cumsum(self.dist)[-1]
+        return np.cumsum(self.dists)[-1]
 
     def generate_gcode(self):
         # Move to start of the line.
