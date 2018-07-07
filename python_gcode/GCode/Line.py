@@ -78,14 +78,6 @@ class Line(GCode):
         return self.points[:, 1]
 
     @property
-    def origin(self):
-        return self.points[0, :]
-
-    @property
-    def end(self):
-        return self.points[-1, :]
-
-    @property
     def x_0(self):
         return self.points[0, 0]
 
