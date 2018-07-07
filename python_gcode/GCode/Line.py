@@ -48,6 +48,7 @@ default_points = np.array(
     ]
 )
 
+
 class Line(GCode):
     def __init__(
         self,
@@ -93,9 +94,3 @@ class Line(GCode):
                 F=self.feed,
             )
         self.M5()
-
-
-self = Line()
-self.generate_gcode()
-self.buffer
-
