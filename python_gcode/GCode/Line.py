@@ -119,15 +119,22 @@ class Line(GCode):
         return dist_
 
     @property
+    def dist(self):
+        """ Total distance traveled. """
+        return np.cumsum(self.dists)[-1]
+
+    @property
     def times(self):
         """ Amount of time spent drawing each line spegment.
         
         Does not take into consideration acceleration curves """
+        rate = self.feed / 60  # [mm/s]
+        return [dist / rate for dist in self.dists]
 
     @property
-    def dist(self):
+    def time(self):
         """ Total distance traveled. """
-        return np.cumsum(self.dists)[-1]
+        return np.cumsum(self.times)[-1]
 
     def generate_gcode(self):
         # Move to start of the line.
