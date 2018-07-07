@@ -118,7 +118,7 @@ class GRBL(object):
         if compact:
             program = [line.replace(" ", "") for line in program]
 
-        t1 = time()
+        t1 = time.time()
         self.serial.flushInput()
 
         # Create list to store the number of bytes we think are in memory.
@@ -132,7 +132,7 @@ class GRBL(object):
                 results = self.read(multiline=True, timeout=0.1)
 
                 while len(results) == 0:
-                    sleep(0.5)
+                    time.sleep(0.5)
                     results = self.read(multiline=True, timeout=0.1)
 
                 for result in results:
@@ -145,7 +145,7 @@ class GRBL(object):
         except KeyboardInterrupt:
             self.cmd("!")
             print("^C")
-        return time() - t1
+        return time.time() - t1
 
 
 # https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#---view-grbl-settings
