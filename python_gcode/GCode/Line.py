@@ -101,6 +101,11 @@ class Line(GCode):
     def y_f(self):
         return self.points[-1, 1]
 
+    def __repr__(self):
+        return "Line<cut={}mm, F={}, S={}>".format(
+            self.dist, self.feed, self.power
+        )
+
     @property
     def dists(self):
         """ Distances traveled in each line segment """
@@ -112,11 +117,12 @@ class Line(GCode):
             d = np.sqrt(np.power(dX, 2) + np.power(dY, 2))
             dist_.append(d)
         return dist_
-    
-    def __repr__(self):
-        return "Line<cut={}mm, dur
-    
-    def 
+
+    @property
+    def times(self):
+        """ Amount of time spent drawing each line spegment.
+        
+        Does not take into consideration acceleration curves """
 
     @property
     def dist(self):
