@@ -11,9 +11,10 @@ pyserial
 pytest-html
 
 black
-
 git+https://github.com/jed-frey/get_files.git#egg=get_files
 
+autopep8
+isort
 ## Host Requirements
 #16.04 18.04: python3
 #16.04 18.04: python3-venv

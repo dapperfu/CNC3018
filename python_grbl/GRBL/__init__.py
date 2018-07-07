@@ -11,21 +11,21 @@ class GRBL(object):
     Tested on 1.1
     Developed on Chinese CNC 3018
     """
+
     BAUDRATE = 115200
 
     def __init__(self, port):
         """
 
         """
-        self.serial = serial.Serial(port=port,
-                                    baudrate=GRBL.BAUDRATE,
-                                    timeout=0.10)
+        self.serial = serial.Serial(port=port, baudrate=GRBL.BAUDRATE, timeout=0.10)
 
     def write(self, command_line=""):
         bytes_written = [0, 0]
         bytes_written[0] = self.serial.write("\n".encode())
         bytes_written[1] = self.serial.write(
-            "{cmd}\n".format(cmd=command_line).encode())
+            "{cmd}\n".format(cmd=command_line).encode()
+        )
         return bytes_written
 
     def read(self, multiline=True, timeout=-1):
@@ -54,13 +54,13 @@ class GRBL(object):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#grbl-v11-realtime-commands
         """
         ret = self.cmd("\x18")
-        assert(ret[-1] == 'ok')
+        assert ret[-1] == "ok"
 
     def sleep(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#slp---enable-sleep-mode
         """
         ret = self.cmd("$SLP")
-        assert(ret[-1] == 'ok')
+        assert ret[-1] == "ok"
 
     @property
     def status(self):
@@ -73,15 +73,15 @@ class GRBL(object):
         elif len(ret) == 3:
             return ret[1]
         else:
-            raise(Exception(ret))
-        
-        assert(ret[-1] == 'ok')
+            raise (Exception(ret))
+
+        assert ret[-1] == "ok"
 
     def kill_alarm(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#x---kill-alarm-lock
         """
         ret = self.cmd("$X")
-        assert(ret[-1] == 'ok')
+        assert ret[-1] == "ok"
 
     def home(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#h---run-homing-cycle
@@ -102,7 +102,7 @@ class GRBL(object):
         elif isinstance(program, GCode.GCode):
             program = program.buffer
         else:
-            raise(Exception("Unsupported: {}".format(type(program))))
+            raise (Exception("Unsupported: {}".format(type(program))))
 
         # Strip whitespace and force letters to capital.
         program = [line.strip().upper() for line in program]
@@ -188,6 +188,7 @@ def grbl_getter_generator(cmd):
                 if key == cmd:
                     return float(value)
         return None
+
     return grbl_getter
 
 
@@ -207,9 +208,7 @@ for setting in settings:
     setter = grbl_setter_generator(cmd)
     getter = grbl_getter_generator(cmd)
 
-    prop = property(fget=getter,
-                    fset=setter,
-                    doc=" ".join(name.split("_")))
+    prop = property(fget=getter, fset=setter, doc=" ".join(name.split("_")))
 
     setattr(GRBL, name, prop)
 
@@ -241,6 +240,7 @@ def gcode_param_gen(parameter):
 
                 return values
         return None
+
     return gcode_param
 
 
