@@ -11,7 +11,7 @@ class GRBL(object):
     """
 
     BAUDRATE = 115200
-    HOME_TIMEOUT = 60
+    TIMEOUT = 60
 
     def __init__(self, port):
         """
@@ -54,8 +54,15 @@ class GRBL(object):
     def reset(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#grbl-v11-realtime-commands
         """
-        ret = self.cmd("\x18")
-        assert ret[-1] == "ok"
+        for t in range(GRBL.TIMEOUT):
+            ret = self.cmd("\x18")
+            if len(ret) == 2:
+                assert ret[0] == "ok"
+                assert ret[1] == "ok"
+                return t
+                break
+            time.sleep(1)
+        return None
 
     def sleep(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#slp---enable-sleep-mode
@@ -89,7 +96,7 @@ class GRBL(object):
         """
         self.write("$H")
 
-        for t in range(GRBL.HOME_TIMEOUT):
+        for t in range(GRBL.TIMEOUT):
             ret = self.cmd("")
             if len(ret) == 2:
                 assert ret[0] == "ok"
