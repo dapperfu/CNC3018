@@ -67,6 +67,14 @@ class Line(GCode):
         self.dynamic_power = dynamic_power
 
     @property
+    def X(self):
+        return self.points[:, 0]
+
+    @property
+    def Y(self):
+        return self.points[:, 1]
+
+    @property
     def x_0(self):
         return self.points[0, 0]
 
