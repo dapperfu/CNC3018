@@ -1,5 +1,5 @@
 import serial
-from time import time, sleep
+import time
 
 
 class GRBL(object):
@@ -56,6 +56,7 @@ class GRBL(object):
         """
         for t in range(GRBL.TIMEOUT):
             ret = self.cmd("\x18")
+            print(ret)
             if len(ret) == 2:
                 assert ret[0] == "ok"
                 assert ret[1] == "ok"
