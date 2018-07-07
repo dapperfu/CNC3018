@@ -73,15 +73,13 @@ class Line(GCode):
         self.M3(
             S=1
         )  # Set laser power so that movement can be seen, but does nothing.
-        self.G28()  # "Home"
         self.G21()  # Metric Units
         self.G90()  # Absolute positioning.
-        self.G92(
-            X=0, Y=0, Z=0
-        )  # The cliche, I forgot why I added it. It works. Don't touch it.
-
+        
+        # Move to start of the line.
         self.G0(X=self.points[0, 0], Y=self.points[0, 1])
 
+        #
         if self.dynamic_power:
             self.M4(S=self.power)
         else:
