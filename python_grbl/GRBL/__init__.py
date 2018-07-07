@@ -18,7 +18,9 @@ class GRBL(object):
         """
 
         """
-        self.serial = serial.Serial(port=port, baudrate=GRBL.BAUDRATE, timeout=0.10)
+        self.serial = serial.Serial(
+            port=port, baudrate=GRBL.BAUDRATE, timeout=0.10
+        )
 
     def write(self, command_line=""):
         bytes_written = [0, 0]
