@@ -6,6 +6,8 @@ import numpy as np
 
 
 class Program(GCode):
+    """ A GCode Program Object """
+
     def __init__(self, lines=list(), feed=120, *args, **kwargs):
         self.lines = lines
         self.feed = feed
