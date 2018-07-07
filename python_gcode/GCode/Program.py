@@ -14,8 +14,7 @@ class Program(GCode):
 
     def setup(self):
         self.buffer = list()
-        self.G0()
-        self.G1(F=60)  # 60 mm / min = 1 mm / sec
+        self.G0(F=self.feed)
         self.M3(
             S=1
         )  # Set laser power so that movement can be seen, but does nothing.
