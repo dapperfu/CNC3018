@@ -84,7 +84,7 @@ class GRBL(object):
         """
         ret = self.cmd("$X")
         assert ret[-1] == "ok"
-       
+
     def home(self):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#h---run-homing-cycle
         """
