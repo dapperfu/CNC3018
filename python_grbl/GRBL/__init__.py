@@ -1,6 +1,9 @@
 import serial
 import time
 
+run_states = ["Idle", "Run", "Hold", "Door", "Home", "Alarm", "Check"]
+
+
 
 class GRBL(object):
     """
