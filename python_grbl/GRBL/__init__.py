@@ -147,11 +147,13 @@ class GRBL(object):
                         except:
                             # Miscounted byte counting, we're ahead.
                             pass
+            for _ in range(GRBL.TIMEOUT):
                 run_status=self.status.strip("<>").split("|")
                 run_state = run_status[0]
                 assert(run_state in run_states)
                 if run_state is "Run":
                     print(run_state)
+                    time.sleep(0.25)
                 else:
                     break
         except KeyboardInterrupt:
