@@ -12,7 +12,7 @@ from .clean_empty_notebook_cells import clean_empty_notebook_cells
 
 from .isort_notebook_cells import isort_notebook_cells
 
-from .black_import_cells import black_import_cells
+from .black_notebook_cells import black_notebook_cells
 from .clean_empty_notebook_cells import bubble_import_notebook_cells
 
 
