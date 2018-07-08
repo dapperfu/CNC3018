@@ -128,7 +128,7 @@ class Line(GCode):
     def time(self):
         """ Total distance traveled. """
         return np.sum(self.times)[-1]
-
+    
     def generate_gcode(self):
         self.buffer = list()
         # Move to start of the line.
