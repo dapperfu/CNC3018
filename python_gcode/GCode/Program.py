@@ -17,13 +17,15 @@ class Program(GCode):
 
     def setup(self):
         self.buffer = list()
+        self.G21()  # Metric Units
+        self.G90()  # Absolute positioning.
+        
         self.G28()
         self.G0(F=self.feed)
+        self.G1(F=self.feed)
         self.M3(
             S=1
         )  # Set laser power so that movement can be seen, but does nothing.
-        self.G21()  # Metric Units
-        self.G90()  # Absolute positioning.
         self.G92(X=0, Y=0, Z=0)  # I wasn't joking.
 
     def teardown(self):
