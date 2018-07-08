@@ -60,6 +60,9 @@ class GRBL(object):
                 return (t, ret)
                 break
             time.sleep(1)
+        if home:
+            time.sleep(1)
+            return self.home()
         return None
 
     def sleep(self):
