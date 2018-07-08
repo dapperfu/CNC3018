@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import nbformat
 import black
+import nbformat
+
 
 def black_notebook_cells(notebook=None):
     with open(notebook, "rb") as fp:

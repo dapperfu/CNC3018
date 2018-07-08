@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
-from .GCode import GCode
 import numpy as np
+
+from .GCode import GCode
 
 
 class Program(GCode):

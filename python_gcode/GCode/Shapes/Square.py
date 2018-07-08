@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from .. import Line
-
 import numpy as np
+
+from .. import Line
 
 
 class Square(Line):

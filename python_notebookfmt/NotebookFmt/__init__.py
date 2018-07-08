@@ -16,10 +16,12 @@ cleaning_functions.append(isort_notebook_cells)
 cleaning_functions.append(black_notebook_cells)
 cleaning_functions.append(clean_empty_notebook_cells)
 
+
 def main(args=sys.argv):
     assert len(args) == 2
     for cleaning_function in cleaning_functions:
         cleaning_function(notebook=args[1])
+
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,7 @@
+import uuid
+
 import GCode
 import GRBL
-
-import uuid
 
 
 def test_01():

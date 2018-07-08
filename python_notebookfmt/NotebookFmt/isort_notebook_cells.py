@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import nbformat
 import isort
+import nbformat
+
 
 def isort_notebook_cells(notebook):
     with open(notebook, "rb") as fp:
