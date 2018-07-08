@@ -1,16 +1,14 @@
 ## Python Requirements
-
 pytest
 numpy
 jupyter
 notebook
 pyserial
-
 matplotlib
 
 -e python_grbl/
 -e python_gcode/
-pytest-html
+-e python_notebookfmt/
 
 black
 git+https://github.com/jed-frey/get_files.git#egg=get_files
