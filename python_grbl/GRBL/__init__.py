@@ -51,7 +51,7 @@ class GRBL(object):
             return self.read(multiline=multiline)
         return None
 
-    def reset(self):
+    def reset(self, home=True):
         """ https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#grbl-v11-realtime-commands
         """
         for t in range(GRBL.TIMEOUT):
