@@ -2,12 +2,6 @@
 
 import sys
 
-import glob
-import nbformat
-import os
-import black
-import isort
-
 from .clean_empty_notebook_cells import clean_empty_notebook_cells
 
 from .isort_notebook_cells import isort_notebook_cells
@@ -31,13 +25,6 @@ def main(args=sys.argv):
 
 
 import pkg_resources
-
-
-def get_sneks():
-    sneks = {}
-    for entry_point in pkg_resources.iter_entry_points("snek_types"):
-        sneks[entry_point.name] = entry_point.load()
-    return sneks
 
 
 if __name__ == "__main__":
