@@ -10,7 +10,7 @@ setup(
     entry_points = {
         'console_scripts': ['notebookformat=NotebookFmt.__init__:main'],
         'snek_types': [
-            'cute = cute_snek:cute_snek',
+            'clean_empty = NotebookFmt:clean_empty_notebook_cells',
         ],
     },
     zip_safe=False,
