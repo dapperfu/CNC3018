@@ -114,7 +114,7 @@ class Line(GCode):
     @property
     def dist(self):
         """ Total distance traveled. """
-        return np.sum(self.dists)
+        return np.round(np.sum(self.dists), 5)
 
     @property
     def times(self):
