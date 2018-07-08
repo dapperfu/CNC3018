@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from .GCode import GCode
 import numpy as np
+
+from .GCode import GCode
 
 a = 10  # [mm]. Shorest leg of the triangle will be 10 mm, 1 cm, 0.01 m long.
 default_feed = 300  # mm/n
