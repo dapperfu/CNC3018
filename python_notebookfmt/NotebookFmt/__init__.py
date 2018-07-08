@@ -23,9 +23,5 @@ def main(args=sys.argv):
     for cleaning_function in cleaning_functions:
         cleaning_function(notebook=args[1])
 
-
-import pkg_resources
-
-
 if __name__ == "__main__":
     main()
