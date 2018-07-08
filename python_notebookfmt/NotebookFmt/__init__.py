@@ -56,7 +56,9 @@ def black_notebook_cells(notebook=None):
         if code_cell["source"] == "":
             continue
         try:
-            code_cell["source"] = black.format_str(code_cell["source"], line_length=80)
+            code_cell["source"] = black.format_str(
+                code_cell["source"], line_length=80
+            )
         except:
             print("Failed: {}".format(code_cell["source"]))
 

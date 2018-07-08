@@ -16,7 +16,15 @@ def picture():
 
     img_path = os.path.join(img_root, img_name)
 
-    cmd_array = ["streamer", "-c", "/dev/video1", "-s", resolution, "-o", img_path, ]
+    cmd_array = [
+        "streamer",
+        "-c",
+        "/dev/video1",
+        "-s",
+        resolution,
+        "-o",
+        img_path,
+    ]
     cmd_array
 
     ret = check_output(cmd_array)

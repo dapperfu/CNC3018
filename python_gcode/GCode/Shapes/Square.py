@@ -4,6 +4,7 @@ from .. import Line
 
 import numpy as np
 
+
 class Square(Line):
     def __init__(
         self, len_side=10, origin=np.array([0, 0]), rotation=0, *args, **kwargs
