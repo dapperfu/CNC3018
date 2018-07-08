@@ -126,7 +126,13 @@ def main(args=sys.argv):
     for cleaning_function in cleaning_functions:
         cleaning_function(notebook=args[1])
     
-    
+import pkg_resources
+def get_sneks():
+    sneks = {
+    }
+    for entry_point in pkg_resources.iter_entry_points('snek_types'):
+        sneks[entry_point.name] = entry_point.load()
+    return sneks
     
 if __name__ == "__main__":
     main()
