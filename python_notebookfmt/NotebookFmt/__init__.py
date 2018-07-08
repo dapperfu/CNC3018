@@ -8,6 +8,8 @@ import os
 import black
 import isort
 
+from .clean_empty_notebook_cells import clean_empty_notebook_cells
+
 def isort_notebook_cells(notebook):
     with open(notebook, "rb") as fp:
         nb = nbformat.read(fp=fp, as_version=nbformat.NO_CONVERT)
