@@ -61,7 +61,7 @@ class Line(GCode):
         *args,
         **kwargs,
     ):
-        self.points = points
+        self.points = points.squeeze()
         self.feed = feed
         self.power = power
         self.dynamic_power = dynamic_power
