@@ -7,11 +7,9 @@ setup(
     author="Jed Frey",
     license="BSD",
     packages=["NotebookFmt"],
-    entry_points = {
-        'console_scripts': ['notebookformat=NotebookFmt.__init__:main'],
-        'snek_types': [
-            'clean_empty = NotebookFmt:clean_empty_notebook_cells',
-        ],
+    entry_points={
+        "console_scripts": ["notebookformat=NotebookFmt.__init__:main"],
+        "snek_types": ["clean_empty = NotebookFmt:clean_empty_notebook_cells"],
     },
     zip_safe=False,
 )

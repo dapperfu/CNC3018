@@ -10,6 +10,7 @@ import isort
 
 from .clean_empty_notebook_cells import clean_empty_notebook_cells
 
+
 def isort_notebook_cells(notebook):
     with open(notebook, "rb") as fp:
         nb = nbformat.read(fp=fp, as_version=nbformat.NO_CONVERT)
@@ -34,7 +35,8 @@ def isort_notebook_cells(notebook):
 
     with open(notebook, "w") as fp:
         nbformat.write(nb, fp)
-        
+
+
 def black_notebook_cells(notebook=None):
     with open(notebook, "rb") as fp:
         nb = nbformat.read(fp=fp, as_version=nbformat.NO_CONVERT)
@@ -54,16 +56,14 @@ def black_notebook_cells(notebook=None):
         if code_cell["source"] == "":
             continue
         try:
-            code_cell["source"] = black.format_str(
-                code_cell["source"],
-                line_length=80
-            )
+            code_cell["source"] = black.format_str(code_cell["source"], line_length=80)
         except:
             print("Failed: {}".format(code_cell["source"]))
-            
+
     with open(notebook, "w") as fp:
         nbformat.write(nb, fp)
-                
+
+
 def bubble_import_notebook_cells(notebook):
     """ bubble imports to the top of a notebook"""
     with open(notebook, "rb") as fp:
@@ -72,7 +72,7 @@ def bubble_import_notebook_cells(notebook):
     markdown_cells = list()
     code_cells = list()
     imports = list()
-    
+
     for cell in nb["cells"]:
         if cell["cell_type"] == "code":
             code_cells.append(cell)
@@ -93,10 +93,11 @@ def bubble_import_notebook_cells(notebook):
                     tmp_buffer.append(line)
             code_cell["source"] = tmp_buffer
     import_cell = nbformat.v4.new_code_cell()
-    import_cell["source"]="\n".join(imports)
+    import_cell["source"] = "\n".join(imports)
     nb["cells"].insert(0, import_cell)
     with open(notebook, "w") as fp:
         nbformat.write(nb, fp)
+
 
 cleaning_functions = list()
 
@@ -106,21 +107,21 @@ cleaning_functions.append(black_notebook_cells)
 cleaning_functions.append(clean_empty_notebook_cells)
 
 
-def main(args=sys.argv):    
-    assert(len(args)==2)
+def main(args=sys.argv):
+    assert len(args) == 2
     for cleaning_function in cleaning_functions:
         cleaning_function(notebook=args[1])
-    
+
+
 import pkg_resources
+
+
 def get_sneks():
-    sneks = {
-    }
-    for entry_point in pkg_resources.iter_entry_points('snek_types'):
+    sneks = {}
+    for entry_point in pkg_resources.iter_entry_points("snek_types"):
         sneks[entry_point.name] = entry_point.load()
     return sneks
-    
+
+
 if __name__ == "__main__":
     main()
-    
-    
-    
