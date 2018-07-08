@@ -130,6 +130,7 @@ class Line(GCode):
         return np.sum(self.times)[-1]
 
     def generate_gcode(self):
+        self.buffer = list()
         # Move to start of the line.
         self.G0(X=self.points[0, 0], Y=self.points[0, 1])
 
