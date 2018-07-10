@@ -133,6 +133,11 @@ class Line(GCode):
         """ Total distance traveled. """
         return np.round(np.sum(self.times), 5)
     
+    def set_power(self, power):
+        self.power = power
+    def set_feed(self, feed):
+        self.feed = feed
+    
     def generate_gcode(self):
         self.buffer = list()
         # Move to start of the line.
