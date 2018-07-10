@@ -99,7 +99,7 @@ class Line(GCode):
         return self.points[-1, 1]
 
     def __repr__(self):
-        return "Line<cut={}mm, F={}, S={}>".format(
+        return "Line<len={}mm, feed={}, power={}>".format(
             self.dist, self.feed, self.power
         )
 
