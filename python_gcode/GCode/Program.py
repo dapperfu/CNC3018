@@ -14,6 +14,8 @@ class Program(GCode):
         self.feed = feed
 
         super().__init__(*args, **kwargs)
+        
+        self.generate_gcode()
 
     def setup(self):
         self.buffer = list()
