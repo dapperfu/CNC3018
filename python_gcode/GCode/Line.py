@@ -58,7 +58,6 @@ def HorzLine(X0=0, Xf=10, Y=0, n_points=2):
     ])
     return line_points.transpose()
 
-
 def VertLine(X=0, Y0=0, Yf=10, n_points=2):
     p = np.linspace(Y0, Yf, n_points, endpoint=True)
     line_points = np.array([
