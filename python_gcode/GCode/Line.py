@@ -135,6 +135,8 @@ class Line(GCode):
     
     def set_power(self, power):
         self.power = power
+    def set_points(self, points):
+        self.points = points
     def set_feed(self, feed):
         self.feed = feed
     
