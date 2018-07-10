@@ -50,6 +50,23 @@ default_points = np.array(
     ]
 )
 
+def HorzLine(X0=0, Xf=10, Y=0, n_points=2):
+    p = np.linspace(X0, Xf, n_points, endpoint=True)
+    line_points = np.array([
+        p,
+        Y*np.ones(p.shape),
+    ])
+    return line_points.transpose()
+
+
+def VertLine(X=0, Y0=0, Yf=10, n_points=2):
+    p = np.linspace(Y0, Yf, n_points, endpoint=True)
+    line_points = np.array([
+        X*np.ones(p.shape),
+        p,
+    ])
+    return line_points.transpose()
+
 
 class Line(GCode):
     def __init__(
