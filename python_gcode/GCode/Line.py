@@ -86,7 +86,7 @@ class Line(GCode):
 
         self.generate_gcode()
         
-    def reverse(self, points):
+    def reverse(self):
         flip_n_reverseit = np.eye(self.points.shape[0])[:, ::-1]
         self.points=np.matmul(flip_n_reverseit, self.points)
 
