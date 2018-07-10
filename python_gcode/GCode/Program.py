@@ -86,4 +86,4 @@ class Program(GCode):
         return self.jog_time + self.laserin_time
 
     def __repr__(self):
-        return "Program<lines={}, dist={:f.2}mm, t={:f.2}s>".format(len(self.lines), self.dist, self.time)
+        return "Program<lines={}, dist={:f.2f}mm, t={:.2f}s>".format(len(self.lines), self.dist, self.time)
