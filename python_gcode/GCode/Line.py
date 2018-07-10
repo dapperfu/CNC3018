@@ -142,8 +142,8 @@ class Line(GCode):
         if self.dynamic_power:
             self.M4(S=self.power)
         else:
-            self.M4(S=self.power)
-
+            self.M3(S=self.power)
+            
         # For remaining points.
         for row_idx in range(1, self.points.shape[0]):
             self.G1(
