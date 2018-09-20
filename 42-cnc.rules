@@ -1,8 +1,0 @@
-# sudo cp 42-cnc.rules /etc/udev/rules.d/
-# udevadm control --reload-rules && udevadm trigger
-# udevadm info -a -n /dev/ttyUSB0
-
-# TODO: Figure out serial numbers.
-ACTION=="add", ATTRS{idProduct}=="7523", ATTRS{idVendor}=="1a86", SYMLINK+="grbl"
-ACTION=="add", ATTRS{idProduct}=="7523", ATTRS{idVendor}=="1a86", SYMLINK+="grbl_3018"
-ACTION=="add", ATTRS{idProduct}=="7523", ATTRS{idVendor}=="1a86", SYMLINK+="cnc_3018"
