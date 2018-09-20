@@ -26,13 +26,15 @@ transform_tuple = (
     flip,  # Flip the matrix, reduces travel time.
 )
 vertical_brick_lines_tuple = (
-    np.arange(L_Block_Brick, BlockLength, L_Block_Brick),# Odd rows.
-    np.arange(L_Block_Brick / 2, BlockLength, L_Block_Brick), # Even rows.
+    np.arange(L_Block_Brick, BlockLength, L_Block_Brick),  # Odd rows.
+    np.arange(L_Block_Brick / 2, BlockLength, L_Block_Brick),  # Even rows.
 )
-horizontal_brick_lines = np.linspace(0, BlockHeight, N_BrickRows, endpoint=False)
+horizontal_brick_lines = np.linspace(
+    0, BlockHeight, N_BrickRows, endpoint=False
+)
 
-BlockBrick=GCode.Program()
-BlockBrick.lines=list()
+BlockBrick = GCode.Program()
+BlockBrick.lines = list()
 
 for idx in range(1, len(horizontal_brick_lines)):
     # Top horizontal line that defines each 'brick'
@@ -44,12 +46,9 @@ for idx in range(1, len(horizontal_brick_lines)):
     transform = transform_tuple[np.mod(idx, 2)]
 
     row_line_points = np.matmul(transform, row_line_points)
-    line_ = GCode.Line(
-        points=row_line_points,
-    )
+    line_ = GCode.Line(points=row_line_points)
 
     BlockBrick.lines.append(line_)
 
-assert N_BrickRows-len(BlockBrick.lines)==1, "Something's Broken"
+assert N_BrickRows - len(BlockBrick.lines) == 1, "Something's Broken"
 assert np.isclose(BlockBrick.dist, 2416.0212033333337), "Something's Broken"
-
