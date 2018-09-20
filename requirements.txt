@@ -8,13 +8,13 @@ matplotlib
 
 -e python_grbl/
 -e python_gcode/
--e python_notebookfmt/
 
 black
-git+https://github.com/jed-frey/get_files.git#egg=get_files
-
-autopep8
 isort
+
+git+https://github.com/jed-frey/get_files.git#egg=get_files
+git+https://github.com/jed-frey/jupyter_NotebookCleaners.git#egg=notebookcleaner
+
 ## Host Requirements
 #16.04 18.04: python3
 #16.04 18.04: python3-venv
