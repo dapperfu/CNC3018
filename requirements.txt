@@ -6,11 +6,8 @@ notebook
 pyserial
 matplotlib
 
--e python_grbl/
--e python_gcode/
-
-black
-isort
+git+https://github.com/jed-frey/python_GCode.git
+git+https://github.com/jed-frey/python_GRBL.git
 
 git+https://github.com/jed-frey/get_files.git#egg=get_files
 git+https://github.com/jed-frey/jupyter_NotebookCleaners.git#egg=notebookcleaner
