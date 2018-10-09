@@ -1,4 +1,5 @@
 ### Config
+VENV=_${PROJ}
 
 ## Environment
 # Setup the local environment

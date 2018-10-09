@@ -1,3 +1,9 @@
 [submodule ".mk_inc"]
 	path = .mk_inc
 	url = https://github.com/jed-frey/make_sandwich.git
+[submodule "python_GCode"]
+	path = python_GCode
+	url = https://github.com/jed-frey/python_GCode.git
+[submodule "python_GRBL"]
+	path = python_GRBL
+	url = https://github.com/jed-frey/python_GRBL.git
