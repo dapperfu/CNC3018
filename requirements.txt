@@ -1,4 +1,6 @@
 ## Python Requirements
+ipython<5.0.0
+ipykernel<5.0.0
 pytest
 numpy
 jupyter
