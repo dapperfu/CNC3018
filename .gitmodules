@@ -7,3 +7,6 @@
 [submodule "python_GRBL"]
 	path = python_GRBL
 	url = https://github.com/jed-frey/python_GRBL.git
+[submodule "jupyter_NotebookCleaners"]
+	path = jupyter_NotebookCleaners
+	url = https://github.com/jed-frey/jupyter_NotebookCleaners.git

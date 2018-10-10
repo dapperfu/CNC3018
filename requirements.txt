@@ -8,6 +8,7 @@ matplotlib
 
 -e python_GCode/
 -e python_GRBL/
+-e jupyter_NotebookCleaners/
 
 git+https://github.com/jed-frey/get_files.git#egg=get_files
 git+https://github.com/jed-frey/jupyter_NotebookCleaners.git#egg=notebookcleaner
