@@ -1,7 +1,8 @@
 .pytest_cache/
 selenium/
 test-reports/
-
+images/
+Untitled*.ipynb
 
 nohup.out
 .env-*
