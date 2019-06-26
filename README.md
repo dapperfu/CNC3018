@@ -1,45 +1,31 @@
-# Python CNC3018
+# GRPUG CNC3018 Demo
 
-- Tested on Ubuntu 18.04.
-- Python 3.6
+Quick and dirty demo written making tokens for EF2019.
 
 # Installation
 
-    git clone --jobs=8 --branch=master --recurse-submodules https://github.com/jed-frey/CNC3018.git
-    cd CNC3018
+```
+git clone --branch=demos/GRPUG --recurse-submodules https://github.com/jed-frey/CNC3018.git
+cd CNC3018
+```
 
-## Setup host environment
+- Setup host environment, only needs done once per host.
 
-Setup the host, only needs done once per host.
+```
+sudo make env.host
+```
 
-    sudo make env.host
+- Setup Python Virtual Environment.
 
-## Setup Python Virtual Environment.
+```
+make env
+```
 
-    make env
+Activate environment.
 
-If you do not want the top level directory (CNC3018) to be the virtual environment root you can specify a different venv with ```VENV``:
-
-Inline:
-
-    $ make env VENV=/tmp/venv
-
-With Environmental Variables:
-
-    $ export VENV=/tmp/venv # bourne shells
-    $ make env
-
-    > setenv VENV /tmp/venv # c shells
-    > make env
-
-## Activate environment.
-
-- `source bin/activate` # Bash
-- `source bin/activate.csh` # C Shells
-
-## Cleaning Environment.
-
-    make clean
+```
+source bin/activate
+```
 
 ### udev integration [Optional]
 

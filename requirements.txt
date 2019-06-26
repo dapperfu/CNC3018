@@ -1,6 +1,8 @@
 ## Python Requirements
-ipython<5.0.0
-ipykernel<5.0.0
+
+# Public Projects.
+ipython
+ipykernel
 pytest
 numpy
 jupyter
@@ -8,6 +10,7 @@ notebook
 pyserial
 matplotlib
 
+# Personal Projects
 git+https://github.com/jed-frey/python_GCode.git
 git+https://github.com/jed-frey/python_GRBL.git
 
@@ -15,6 +18,5 @@ git+https://github.com/jed-frey/get_files.git#egg=get_files
 git+https://github.com/jed-frey/jupyter_NotebookCleaners.git#egg=notebookcleaner
 
 ## Host Requirements
-#16.04 18.04: python3
-#16.04 18.04: python3-venv
+#16.04 18.04: python3.7 python3.7-venv
 #16.04 18.04: avrdude
