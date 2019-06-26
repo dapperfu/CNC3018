@@ -1,6 +1,6 @@
 # GRPUG CNC3018 Demo
 
-Quick and dirty demo written making tokens for EF2019.
+Quick and dirty demo for GRPUG.
 
 # Installation
 
